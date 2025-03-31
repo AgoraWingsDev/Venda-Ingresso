@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "skipLibCheck": true,
+    "typeRoots": ["./types"]
+  },
+  "lib": ["es2015"]
+}

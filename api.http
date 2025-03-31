@@ -1,0 +1,117 @@
+###
+# @name loginPartner1
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email":"partner1@user.com",
+    "password":"secret"
+}
+
+###
+
+@tokenPartner1 = {{ loginPartner1.response.body.token }}
+
+###
+# @name loginCustomer1
+
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email":"customer1@user.com",
+    "password":"secret"
+}
+
+###
+
+@tokenCustomer1 = {{ loginCustomer1.response.body.token }}
+
+###
+POST http://localhost:3000/partners/register
+Content-Type: application/json
+
+{
+    "name": "partner1",
+    "email": "partner1@user.com",
+    "password": "secret",
+    "company_name": "company1"
+}
+
+###
+POST http://localhost:3000/customers/register
+Content-Type: application/json
+
+{
+    "name": "customer1",
+    "email": "customer1@user.com",
+    "password": "secret",
+    "address": "rua1",
+    "phone": "1111-1111"
+}
+
+###
+POST http://localhost:3000/partners/events
+Content-Type: application/json
+Authorization: Bearer {{ tokenPartner1 }}
+
+{
+    "name": "partner1",
+    "description": "show",
+    "date": "2025-01-01T00:00:00",
+    "location": "rua do show"
+}
+
+###
+POST http://localhost:3000/partners/events
+Content-Type: application/json
+Authorization: Bearer {{ tokenPartner1 }}
+
+{
+    "name": "partner1",
+    "description": "soccer",
+    "date": "2025-05-11T00:00:00",
+    "location": "rua do soccer"
+}
+
+###
+GET http://localhost:3000/partners/events
+Authorization: Bearer {{ tokenPartner1 }}
+
+###
+GET http://localhost:3000/partners/event/2
+Authorization: Bearer {{ tokenPartner1 }}
+
+###
+POST  http://localhost:3000/events/1/tickets
+Content-Type: application/json
+Authorization: Bearer {{ tokenPartner1 }}
+
+{
+    "num_tickets": 10,
+    "price": 50
+}
+
+###
+GET http://localhost:3000/events
+
+
+###
+GET http://localhost:3000/events/1
+
+###
+GET http://localhost:3000/events/1/tickets
+
+###
+GET http://localhost:3000/events/1/tickets/3
+
+###
+POST http://localhost:3000/purchases
+Content-Type: application/json
+Authorization: Bearer {{ tokenCustomer1 }}
+
+{
+    "ticket_ids": [1],
+    "card_token": "tok_visa"
+}
